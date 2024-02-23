@@ -22,7 +22,7 @@ form.addEventListener("submit", async (e) => {
         // Récupération données de la réponse
         const data = await response.json();
         // Stockage Token dans la session utilisateur
-        sessionStorage.setItem("accessToken", data.token);
+        sessionStorage.setItem("token", data.token);
         // Redirection utilisateur vers page d'accueil
         window.location.replace("index.html");
         // Si réponse échec
@@ -63,3 +63,21 @@ form.addEventListener("submit", async (e) => {
             connexion.insertBefore(error, connexion.lastElementChild);
         }
     })
+
+// Vérification de la présence des Token de Log
+let token = window.sessionStorage.getItem("token");
+// Affichage de la page Admin au log
+if (token) {
+    let logged = document.querySelectorAll(".logged");
+    for (let i = 0; i < logged.length; i++) {
+    logged[i].style.display = null;
+    }
+    document.getElementById("filterBar").style.display = "none";
+    document.getElementById("login").style.display = "none";
+    document.getElementById("logout").style.display = null;
+}
+// Déconnexion
+const logout = document.getElementById("logout");
+logout.addEventListener("click", (event) => {
+  window.sessionStorage.clear();
+});
