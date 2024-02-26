@@ -374,3 +374,42 @@ input[type="submit"]{
 	color: #000000;
 	font-size: 0.875em;
 }
+
+/**************** Section Modal *******************/
+.modal {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn .3s both; 
+}
+
+.modal-wrapper {
+    overflow: auto;
+    width: 600px;
+    max-width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+    padding: 20px;
+    background-color: #FFF;
+}
+
+.modal[aria-hidden = "true"] {
+    /* animation-direction: reverse; */
+    animation-name: fadeOut; 
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1}
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0}
+}

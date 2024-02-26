@@ -12,6 +12,9 @@
 	<script src="https://kit.fontawesome.com/3dbd24df0f.js" crossorigin="anonymous"></script>
 	<script type="module" src="./works.js"></script>
 	<script type="module" src="./log.js"></script>
+	<script type="module" src="./modal.js"></script>
+
+
 </head>
 <body>
 	<div class="editmode-bar logged" style="display: none">
@@ -48,10 +51,12 @@
 		<div class="workstitle-worksedit">
 			<h2>Mes Projets</h2>
 			<!-- Edit Div appearing in Admin Mode -->
-			<div class="edit-works logged" style="display: none">
-				<i class="fa-regular fa-pen-to-square"></i>
-				<p>modifier</p>
-			</div>
+			<a href="#modal1" class="js-modal">
+				<div class="edit-works logged" style="display: none">
+					<i class="fa-regular fa-pen-to-square"></i>
+					<p>modifier</p>
+				</div>
+			</a>
 		</div>
 		<div class="filterBar" id="filterBar">
 			<!-- Filters displayed here -->
@@ -74,7 +79,13 @@
 		</form>
 	</section>
 </main>
-
+<!-- Aside section for the Modal -->
+<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
+	<div class="modal-wrapper js-modal-stop">
+		<button class="js-modal-close">Fermer la Modal</button>
+		<h3 id="titlemodal">Galerie photos</h3>
+	</div>
+</aside>
 <footer>
 	<nav>
 		<ul>
