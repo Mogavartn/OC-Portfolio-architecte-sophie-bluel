@@ -380,7 +380,7 @@ input[type="submit"]{
     box-shadow: 0 0 10px blue;
 }
 
-.titlemodal {
+.modal-wrapper h3 {
 	display: flex;
 	justify-content: center;
 	font-size:x-large;
@@ -421,6 +421,21 @@ input[type="submit"]{
 
 .js-modal-close :hover {
 	cursor: pointer;
+	transform: scale(1.3);
+}
+
+.js-modal2-close {
+	border: none;
+	display: flex;
+	justify-self: end;
+	background-color: inherit;
+	font-size: medium;
+	width: 1.2em;
+}
+
+.js-modal2-close :hover {
+	cursor: pointer;
+	transform: scale(1.3);
 }
 
 .addPhoto {
@@ -439,6 +454,28 @@ input[type="submit"]{
 }
 
 .addPhoto:hover {
+	transform: scale(1.1);
+    background-color: #1D6154;
+	color: white;
+	cursor: pointer;
+}
+
+.validatePhoto {
+	display: flex;
+	justify-self: center;
+	margin: 0 2em 2em 2em;
+	padding: 0.5em 1em;
+	color: #1D6154;
+	background-color: transparent;
+	text-decoration: none;
+	font-size: 16px;
+	max-width: fit-content;
+	border: 2px solid #1D6154;
+	border-radius: 60px;
+	transition: transform 200ms ease-in-out;
+}
+
+.validatePhoto:hover {
 	transform: scale(1.1);
     background-color: #1D6154;
 	color: white;

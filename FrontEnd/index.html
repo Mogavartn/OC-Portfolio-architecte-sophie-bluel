@@ -51,7 +51,7 @@
 		<div class="workstitle-worksedit">
 			<h2>Mes Projets</h2>
 			<!-- Edit Div appearing in Admin Mode -->
-			<a href="#modal1" class="js-modal">
+			<a href="#modal1" class="js-modal" id="test">
 				<div class="edit-works logged" style="display: none">
 					<i class="fa-regular fa-pen-to-square"></i>
 					<p>modifier</p>
@@ -84,13 +84,13 @@
 	<div class="modal-wrapper js-modal-stop">
 		<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 		<h3 class="titlemodal">Galerie photos</h3>
-		<button class="addPhoto js-modal" href="#modal2">Ajouter une photo</button>
+		<a href="#modal2" class="addPhoto">Ajouter une photo</a>
 	</div>
 </aside>
-<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
-	<div class="modal-wrapper js-modal-stop">
-		<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-		<h3 class="titlemodal">Ajout photo</h3>
+<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal2" style="display: none;">
+	<div class="modal-wrapper js-modal2-stop">
+		<button class="js-modal2-close"><i class="fa-solid fa-xmark"></i></button>
+		<h3 class="titlemodal2">Ajout photo</h3>
 		<button class="validatePhoto">Valider</button>
 	</div>
 </aside>
