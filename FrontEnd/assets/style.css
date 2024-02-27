@@ -376,6 +376,17 @@ input[type="submit"]{
 }
 
 /**************** Section Modal *******************/
+*:focus {
+    box-shadow: 0 0 10px blue;
+}
+
+.titlemodal {
+	display: flex;
+	justify-content: center;
+	font-size:x-large;
+	font-weight:lighter;
+}
+
 .modal {
     position: fixed;
     display: flex;
@@ -390,6 +401,7 @@ input[type="submit"]{
 }
 
 .modal-wrapper {
+	display:grid;
     overflow: auto;
     width: 600px;
     max-width: calc(100vw - 20px);
@@ -398,11 +410,47 @@ input[type="submit"]{
     background-color: #FFF;
 }
 
+.js-modal-close {
+	border: none;
+	display: flex;
+	justify-self: end;
+	background-color: inherit;
+	font-size: medium;
+	width: 1.2em;
+}
+
+.js-modal-close :hover {
+	cursor: pointer;
+}
+
+.addPhoto {
+	display: flex;
+	justify-self: center;
+	margin: 0 2em 2em 2em;
+	padding: 0.5em 1em;
+	color: #1D6154;
+	background-color: transparent;
+	text-decoration: none;
+	font-size: 16px;
+	max-width: fit-content;
+	border: 2px solid #1D6154;
+	border-radius: 60px;
+	transition: transform 200ms ease-in-out;
+}
+
+.addPhoto:hover {
+	transform: scale(1.1);
+    background-color: #1D6154;
+	color: white;
+	cursor: pointer;
+}
+
+
+/**************** Section Modal Animation *******************/
 .modal[aria-hidden = "true"] {
     /* animation-direction: reverse; */
     animation-name: fadeOut; 
 }
-
 
 @keyframes fadeIn {
     from { opacity: 0; }

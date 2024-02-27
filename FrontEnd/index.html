@@ -82,8 +82,16 @@
 <!-- Aside section for the Modal -->
 <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 	<div class="modal-wrapper js-modal-stop">
-		<button class="js-modal-close">Fermer la Modal</button>
-		<h3 id="titlemodal">Galerie photos</h3>
+		<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+		<h3 class="titlemodal">Galerie photos</h3>
+		<button class="addPhoto js-modal" href="#modal2">Ajouter une photo</button>
+	</div>
+</aside>
+<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
+	<div class="modal-wrapper js-modal-stop">
+		<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+		<h3 class="titlemodal">Ajout photo</h3>
+		<button class="validatePhoto">Valider</button>
 	</div>
 </aside>
 <footer>
