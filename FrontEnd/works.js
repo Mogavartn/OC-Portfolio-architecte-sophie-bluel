@@ -37,15 +37,15 @@ function genWorks(works){
         // Création des balises 
         const imageElement = document.createElement("img");
         imageElement.src = figure.imageUrl;
+        imageElement.alt = figure.title;        
         const titleElement = document.createElement("figcaption");
-        titleElement.innerText = figure.title;        
+        titleElement.innerText = figure.title;
         // Liaison de la balise figure a la section Gallery
         sectionGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
-        workElement.appendChild(titleElement);    
-     }
+        workElement.appendChild(titleElement);
+    }
 }
-
 genWorks(works);
 
 // Création et activation des boutons de filtres
@@ -75,47 +75,21 @@ for (let category of categories) {
     document.querySelector(".gallery").innerHTML = "";
     genWorks(worksObjects);
 });
-
 }  
 
-
-/*filterButtons.addEventListener("click", function () {
-        const worksObjects = works.filter(function (works) {
-            return works.category.id === 1;
-        });
-        document.querySelector(".gallery").innerHTML = "";
-        genWorks(worksObjects);
-    });
-    }*/
-
-/*
-const objectsButton = document.querySelector(".btn-objects");
-
-objectsButton.addEventListener("click", function () {
-    const worksObjects = works.filter(function (works) {
-        return works.category.id === 1;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genWorks(worksObjects);
-});
-
-const apartmentButton = document.querySelector(".btn-apartments");
-
-apartmentButton.addEventListener("click", function () {
-    const worksApartment = works.filter(function (works) {
-        return works.category.id === 2;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genWorks(worksApartment);
-});
-
-const hotelsButton = document.querySelector(".btn-hotels");
-
-hotelsButton.addEventListener("click", function () {
-    const worksHotels = works.filter(function (works) {
-        return works.category.id === 3;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genWorks(worksHotels);
-});
-*/
+// Création de la gallerie dans Modal1
+function genModalWorks(works){
+    for (let i = 0; i < works.length; i++) {
+        const figure = works[i];
+        const sectionModalGallery = document.querySelector(".modal-gallery");
+        const workElement = document.createElement("figure");
+        workElement.dataset.id = works[i].id
+        const imageElement = document.createElement("img");
+        imageElement.src = figure.imageUrl;
+        imageElement.alt = figure.title;        
+        sectionModalGallery.appendChild(workElement);
+        workElement.appendChild(imageElement);
+ 
+    }
+}
+genModalWorks(works);
