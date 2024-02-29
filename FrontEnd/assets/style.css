@@ -380,16 +380,27 @@ input[type="submit"]{
     box-shadow: 0 0 10px blue;
 }
 
+/*
+#modal1 {
+	z-index: 2;
+}
+
+#modal2 {
+	z-index: 1;
+}
+*/
 .modal-wrapper h3 {
-	display: flex;
-	justify-content: center;
+	position: relative;
 	font-size:x-large;
 	font-weight:lighter;
+	display: flex;
+	justify-content: center;
 }
 
 .modal {
     position: fixed;
     display: flex;
+	flex: wrap;
     align-items: center;
     justify-content: center;
     top: 0;
@@ -401,56 +412,69 @@ input[type="submit"]{
 }
 
 .modal-wrapper {
-	display: flex;
-	flex-direction: column;
+	display: grid;
 	align-items: center;
+	justify-content: space-around;
     overflow: auto;
-    width: 630px;
-	height: 688px;
+    width: 600px;
+	height: 650px;
     max-width: calc(100vw - 20px);
-    max-height: calc(100vh - 20px);
-    padding: 20px;
+    max-height: calc(100vh - 50px);
+    padding: 0px 30px;
     background-color: #FFF;
 	border-radius : 10px;
 }
 
-.js-modal-close {
-	border: none;
-	display: flex;
-	justify-self: end;
-	background-color: inherit;
-	font-size: medium;
-	width: 1.2em;
-}
-
-.js-modal-close :hover {
-	cursor: pointer;
-	transform: scale(1.3);
-}
-
+.js-modal-close,
 .js-modal2-close {
+	position: relative;
+	left: 20em;
+	top: 0.4em;
 	border: none;
 	display: flex;
-	justify-self: end;
+	align-self: flex-end;
 	background-color: inherit;
-	font-size: medium;
+	font-size: x-large;
 	width: 1.2em;
 }
 
-.js-modal2-close :hover {
+.js-modal-close :hover,
+.js-modal2-close :hover,
+.backToModal1 :hover {
 	cursor: pointer;
 	transform: scale(1.3);
+	translate: 0.1em;
+}
+
+.backToModal1 {
+	position: relative;
+	border: none;
+	display: flex;
+	align-self: flex-end;
+	background-color: inherit;
+	font-size: x-large;
+	width: 1.2em;
+	text-decoration: none;
+}
+
+.backToModal1:visited {
+	color:inherit;
 }
 
 .modal-gallery {
 	width: 420px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-auto-rows: 1fr;
+	grid-column-gap: 8px;
+	grid-row-gap: 10px;
+	border-bottom: 2px solid gray;
+	padding: 20px 0px;
 }
 
 .modal-gallery img {
-    width: 77px;
-    height: 103px;
+    width: 80px;
+    height: 110px;
     object-fit: cover;
 }
 
@@ -458,10 +482,10 @@ input[type="submit"]{
 .addPhoto {
 	display: flex;
 	justify-self: center;
-	margin: 0 2em 2em 2em;
+	margin: 1em 2em 2em 2em;
 	padding: 0.5em 1em;
-	color: #1D6154;
-	background-color: transparent;
+	color: white;
+	background-color: #1D6154;
 	text-decoration: none;
 	font-size: 16px;
 	max-width: fit-content;
