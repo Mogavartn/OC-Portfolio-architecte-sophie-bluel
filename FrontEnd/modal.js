@@ -8,7 +8,7 @@ let previouslyFocusedElement = null
 
 // MODALE 1
 // Création de la fonction openModal1
-const openModal1 = async function (e) {
+const openModal1 = function (e) {
     // Prevent du click sur le lien 
     e.preventDefault()
     // On cible la modale
@@ -60,10 +60,9 @@ const closeModal1 = function(e) {
     modal1.addEventListener('animationend', hideModal1)
 }
 
-
 // MODALE 2
 // Création de la fonction openModal2 à l'identique de openModal1
-const openModal2 = async function (e) {
+const openModal2 = function (e) {
     closeModal1(e)
     e.preventDefault()
     modal2 = document.getElementById("modal2")
@@ -91,9 +90,17 @@ const closeModal2 = function(e) {
         modal2.style.display = "none"
         modal2.removeEventListener('animationend', hideModal2)
         modal2 = null
+        
     }
     modal2.addEventListener('animationend', hideModal2)
 }
+
+// Création de la fonction de retour Modal1 depuis Modal2
+const backToModal1 = document.querySelector(".backToModal1");
+backToModal1.addEventListener("click", (e) => {
+	closeModal2(e)
+	openModal1(e)
+});
 
 // Création de fonction pour empêcher propagation de l'event vers les parents
 // (empêche la fermeture de modal en clickant n'importe ou)

@@ -89,7 +89,10 @@ function genModalWorks(works){
         imageElement.alt = figure.title;        
         sectionModalGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
- 
+        // création des boutons de suppresion
+        const trashBtn = document.createElement("btn");
+        trashBtn.className = "fa-solid fa-trash-can trashBtn"
+        workElement.appendChild(trashBtn);
     }
 }
 genModalWorks(works);
