@@ -426,26 +426,27 @@ input[type="submit"]{
 	border-radius : 10px;
 }
 
-.modal1Div {
+.modalButtons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.modal1Div,
+.modal2Div {
 	display: grid;
 	align-items: center;
 }
 
-.js-modal-close,
-.js-modal2-close {
-	position: relative;
-	left: 20em;
-	top: 0.4em;
+.js-modal-close {
+	position: absolute;
 	border: none;
-	display: flex;
-	align-self: flex-end;
 	background-color: inherit;
 	font-size: x-large;
 	width: 1.2em;
+	right: 2em;
 }
 
 .js-modal-close :hover,
-.js-modal2-close :hover,
 .backToModal1 :hover {
 	cursor: pointer;
 	transform: scale(1.3);
@@ -453,14 +454,13 @@ input[type="submit"]{
 }
 
 .backToModal1 {
-	position: relative;
+	position: absolute;
 	border: none;
-	display: flex;
-	align-self: flex-end;
 	background-color: inherit;
 	font-size: x-large;
 	width: 1.2em;
 	text-decoration: none;
+	left: 2em;
 }
 
 .backToModal1:visited {
@@ -475,7 +475,7 @@ input[type="submit"]{
 	grid-auto-rows: repeat(3, 1fr);
 	grid-column-gap: 8px;
 	grid-row-gap: 10px;
-	border-bottom: 2px solid #A7A7A7;
+	border-bottom: 1px solid #A7A7A7;
 	padding: 20px 0px;
 }
 
@@ -532,13 +532,37 @@ input[type="submit"]{
 	grid-auto-rows: repeat(3, 1fr);
 	grid-column-gap: 8px;
 	grid-row-gap: 10px;
-	border-bottom: 2px solid #A7A7A7;
+	border-bottom: 1px solid #A7A7A7;
 	padding: 20px 0px;
+}
+
+.blueDivAdd {
+	display: grid;
+	justify-content: center;
+	width: 100%;
+	height: 170px;
+	background-color: #E8F1F6;
+}
+
+.blueDivAdd img {
+	justify-self: center;
+	margin-top: 20px;	
+}
+
+.imgFormat {
+	justify-self: center;
+	font-size: 10px;
+	color: #444444;
 }
 
 .addPhotoFormBtn {
 	z-index: 0;
 	display: flex;
+	height: 36px;
+	width: 175px;
+	background-color: #CBD6DC;
+	border-radius: 50px;
+	box-shadow:none;
 }
 .addPhotoFormBtn p {
 	z-index: 0;
@@ -546,17 +570,37 @@ input[type="submit"]{
 	align-self: center;
 	position: absolute;
 	left: 148px;
+	color: #306685;
 }
 #addPhotoForm {
 	z-index: 1;
-	height: 100%;
+	height: 36px;
+	width: 175px;
 	opacity: 0;
+}
+.addPhotoFormBtn:hover,
+#addPhotoForm:hover,
+.addPhotoFormBtn p:hover {
+	cursor: pointer;
+}
+
+#addPhotoTitle,
+#addPhotoCategory {
+	width: 420px;
+	height: 51px;
+	background-color: white;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	border: #000000;
+}
+
+.modal-addPhotoDiv label {
+	margin-top: 10px;
 }
 
 .validatePhoto {
 	display: flex;
 	justify-self: center;
-	margin: 0 2em 2em 2em;
+	margin: 1em 2em 2em 2em;
 	padding: 0.5em 1em;
 	color: white;
 	background-color: #A7A7A7;

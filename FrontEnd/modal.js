@@ -35,19 +35,25 @@ const openModal1 = function (e) {
     document.querySelector(".addPhoto").addEventListener('click', function() {
         const modal1Div = document.querySelector(".modal1Div");
         const modal2Div = document.querySelector(".modal2Div");
+        const backToModal1 = document.querySelector(".backToModal1");
         modal1Div.setAttribute('aria-hidden', true) ;
         modal1Div.style.display = "none";
         modal2Div.setAttribute('aria-hidden', false) ;
         modal2Div.style.display = null;
+        backToModal1.setAttribute('aria-hidden', false) ;
+        backToModal1.style.display = null;
     })
 
     document.querySelector(".backToModal1").addEventListener('click', function() {
         const modal1Div = document.querySelector(".modal1Div");
         const modal2Div = document.querySelector(".modal2Div");
+        const backToModal1 = document.querySelector(".backToModal1");
         modal1Div.setAttribute('aria-hidden', false) ;
         modal1Div.style.display = null;
         modal2Div.setAttribute('aria-hidden', true) ;
         modal2Div.style.display = "none";
+        backToModal1.setAttribute('aria-hidden', true) ;
+        backToModal1.style.display = "none";
     })
 }
 
