@@ -426,6 +426,11 @@ input[type="submit"]{
 	border-radius : 10px;
 }
 
+.modal1Div {
+	display: grid;
+	align-items: center;
+}
+
 .js-modal-close,
 .js-modal2-close {
 	position: relative;

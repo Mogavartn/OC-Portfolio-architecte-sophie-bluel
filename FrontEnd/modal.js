@@ -30,6 +30,25 @@ const openModal1 = function (e) {
     modal1.querySelector('.js-modal-close').addEventListener('click', closeModal1)
     // Intégration du stop propagation
     modal1.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
+
+
+    document.querySelector(".addPhoto").addEventListener('click', function() {
+        const modal1Div = document.querySelector(".modal1Div");
+        const modal2Div = document.querySelector(".modal2Div");
+        modal1Div.setAttribute('aria-hidden', true) ;
+        modal1Div.style.display = "none";
+        modal2Div.setAttribute('aria-hidden', false) ;
+        modal2Div.style.display = null;
+    })
+
+    document.querySelector(".backToModal1").addEventListener('click', function() {
+        const modal1Div = document.querySelector(".modal1Div");
+        const modal2Div = document.querySelector(".modal2Div");
+        modal1Div.setAttribute('aria-hidden', false) ;
+        modal1Div.style.display = null;
+        modal2Div.setAttribute('aria-hidden', true) ;
+        modal2Div.style.display = "none";
+    })
 }
 
 // Création de la fonction de fermeture closeModal1
@@ -56,10 +75,19 @@ const closeModal1 = function(e) {
         modal1.removeEventListener('animationend', hideModal1)
         // Modal null à nouveau
         modal1 = null
+
+        const modal1Div = document.querySelector(".modal1Div");
+        const modal2Div = document.querySelector(".modal2Div");
+        modal1Div.setAttribute('aria-hidden', false) ;
+        modal1Div.style.display = null;
+        modal2Div.setAttribute('aria-hidden', true) ;
+        modal2Div.style.display = "none";
     }
     modal1.addEventListener('animationend', hideModal1)
 }
 
+
+/*
 // MODALE 2
 // Création de la fonction openModal2 à l'identique de openModal1
 const openModal2 = function (e) {
@@ -101,6 +129,7 @@ backToModal1.addEventListener("click", (e) => {
 	closeModal2(e)
 	openModal1(e)
 });
+*/
 
 // Création de fonction pour empêcher propagation de l'event vers les parents
 // (empêche la fermeture de modal en clickant n'importe ou)
