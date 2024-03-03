@@ -96,3 +96,13 @@ function genModalWorks(works){
     }
 }
 genModalWorks(works);
+
+
+
+// Récupération des catégories pour intégration dans Select de la Modal
+for (let category of categories) {
+    let categorySelection = document.createElement("option");
+    categorySelection.setAttribute("value", `${category.id}`);
+    categorySelection.innerHTML = `${category.name}`;
+    document.getElementById("addPhotoCategory").appendChild(categorySelection);
+}

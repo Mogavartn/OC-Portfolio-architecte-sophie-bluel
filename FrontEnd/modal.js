@@ -1,12 +1,14 @@
-// Déclaration des modales 1 & 2
+// Déclaration de la modale et des fenêtres modales 1 & 2
 let modal1 = document.getElementById("modal1");
-let modal2 = document.getElementById("modal2");
+
+let modal1Div = document.getElementById("modal1Div");
+let modal2Div = document.getElementById("modal2Div");
+
 // On récupère les élements focusable dans la modale pour tab
 const focusableSelector = "button, a, input, textarea"
 let focusablesElements = []
 let previouslyFocusedElement = null
 
-// MODALE 1
 // Création de la fonction openModal1
 const openModal1 = function (e) {
     // Prevent du click sur le lien 
@@ -30,11 +32,9 @@ const openModal1 = function (e) {
     modal1.querySelector('.js-modal-close').addEventListener('click', closeModal1)
     // Intégration du stop propagation
     modal1.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
-
-
+    // Ecoute des clicks pour basculer entre les Modales
+    // On passe à la 2ème fenêtre de Modal
     document.querySelector(".addPhoto").addEventListener('click', function() {
-        const modal1Div = document.querySelector(".modal1Div");
-        const modal2Div = document.querySelector(".modal2Div");
         const backToModal1 = document.querySelector(".backToModal1");
         modal1Div.setAttribute('aria-hidden', true) ;
         modal1Div.style.display = "none";
@@ -43,10 +43,8 @@ const openModal1 = function (e) {
         backToModal1.setAttribute('aria-hidden', false) ;
         backToModal1.style.display = null;
     })
-
+    // On revient sur la 1ère fenêtre de Modal
     document.querySelector(".backToModal1").addEventListener('click', function() {
-        const modal1Div = document.querySelector(".modal1Div");
-        const modal2Div = document.querySelector(".modal2Div");
         const backToModal1 = document.querySelector(".backToModal1");
         modal1Div.setAttribute('aria-hidden', false) ;
         modal1Div.style.display = null;
@@ -81,9 +79,7 @@ const closeModal1 = function(e) {
         modal1.removeEventListener('animationend', hideModal1)
         // Modal null à nouveau
         modal1 = null
-
-        const modal1Div = document.querySelector(".modal1Div");
-        const modal2Div = document.querySelector(".modal2Div");
+    // Avant de fermer la Modal on repasse sur la 1ère fenêtre pour une éventuelle prochaine ouverture
         modal1Div.setAttribute('aria-hidden', false) ;
         modal1Div.style.display = null;
         modal2Div.setAttribute('aria-hidden', true) ;
@@ -91,51 +87,6 @@ const closeModal1 = function(e) {
     }
     modal1.addEventListener('animationend', hideModal1)
 }
-
-
-/*
-// MODALE 2
-// Création de la fonction openModal2 à l'identique de openModal1
-const openModal2 = function (e) {
-    closeModal1(e)
-    e.preventDefault()
-    modal2 = document.getElementById("modal2")
-    focusablesElements = Array.from(modal2.querySelectorAll(focusableSelector))
-    previouslyFocusedElement = document.querySelector(':focus')
-    modal2.style.display = null
-    focusablesElements[0].focus()
-    modal2.setAttribute('aria-hidden', false)
-    modal2.setAttribute('aria-modal', true)
-    modal2.addEventListener('click', closeModal2)
-    modal2.querySelector('.js-modal2-close').addEventListener('click', closeModal2)
-    modal2.querySelector('.js-modal2-stop').addEventListener('click', stopPropagation)
-}
-// Création de la fonction de fermeture closeModal2 à l'identique de closeModal1
-const closeModal2 = function(e) {
-    if (modal2 === null) return
-    if (previouslyFocusedElement !== 0) previouslyFocusedElement.focus()
-    e.preventDefault()
-    modal2.setAttribute('aria-hidden', true) 
-    modal2.removeAttribute('aria-modal')
-    modal2.removeEventListener('click', closeModal2)
-    modal2.querySelector('.js-modal2-close').removeEventListener('click', closeModal2)
-    modal2.querySelector('.js-modal2-stop').removeEventListener('click', stopPropagation)
-    const hideModal2 = function () {
-        modal2.style.display = "none"
-        modal2.removeEventListener('animationend', hideModal2)
-        modal2 = null
-        
-    }
-    modal2.addEventListener('animationend', hideModal2)
-}
-
-// Création de la fonction de retour Modal1 depuis Modal2
-const backToModal1 = document.querySelector(".backToModal1");
-backToModal1.addEventListener("click", (e) => {
-	closeModal2(e)
-	openModal1(e)
-});
-*/
 
 // Création de fonction pour empêcher propagation de l'event vers les parents
 // (empêche la fermeture de modal en clickant n'importe ou)
@@ -147,7 +98,7 @@ const focusInModal = function (e) {
     // On court-circtuite le fonctionnement normal de Tab
     e.preventDefault()
     // On réccupère l'index de l'element actuellement focus
-    let index = focusablesElements.findIndex(f => (f === modal1.querySelector(':focus')) || (f === modal2.querySelector(':focus')) )
+    let index = focusablesElements.findIndex(f => (f === modal1.querySelector(':focus')))
     // Si Shift Tab
     if (e.shiftKey === true) {
     // On enlève un cran à l'index
@@ -172,17 +123,14 @@ const focusInModal = function (e) {
 document.querySelectorAll('.js-modal').forEach(a =>{
     a.addEventListener('click', openModal1)
 })
-// Pour openModal2
-document.querySelector(".addPhoto").addEventListener("click", openModal2)
 
 // Création de l'event listener clavier pour la fermeture Modal
 window.addEventListener('keydown', function (e) {
     if (e.key === "Escape" || e.key === "Esc") {
         closeModal1(e)
-        closeModal2(e)
     }
     // Création d'un event listener clavier pour Tab
-    if ((e.key === "Tab" && modal1 !== null) || (e.key === "Tab" && modal2 !== null)) {
+    if ((e.key === "Tab" && modal1 !== null)) {
         focusInModal(e)
     }
 })

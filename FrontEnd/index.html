@@ -86,13 +86,13 @@
 			<button type="button" class="backToModal1" aria-hidden="true" style="display: none;"><i class="fa-solid fa-arrow-left"></i></button>
 			<button type="button" class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 		</div>
-		<div class="modal1Div" aria-hidden="false" style="display: null;">
+		<div id="modal1Div" class="modal1Div" aria-hidden="false" style="display: null;">
 			<h3 class="titlemodal">Galerie photos</h3>
 			<div class="modal-gallery"></div>
 			<a href="#modal2" class="addPhoto">Ajouter une photo</a>
 		</div>	
-	
-		<div class="modal2Div" aria-hidden="true" style="display: none;">
+<!-- Div section for the 2nd window Modal -->	
+		<div id="modal2Div" class="modal2Div" aria-hidden="true" style="display: none;">
 			<h3 class="titlemodal">Ajout photo</h3>
 			<div class="modal-addPhotoDiv">
 				<div class="blueDivAdd">
@@ -106,8 +106,8 @@
 				<label for="addPhotoTitle">Titre</label>
 				<input type="text" id="addPhotoTitle" name="addPhotoTitle"/>
 				<label for="addPhotoCategory">Catégorie</label>
-				<select id="addPhotoCategory" name="addPhotoCategory">
-					<option value=""></option>
+				<select class ="addPhotoCategory" id="addPhotoCategory" name="addPhotoCategory">
+					<!-- <option value=""></option> -->
 				</select>
 			</div>
 		<button class="validatePhoto">Valider</button>
