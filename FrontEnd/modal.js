@@ -134,3 +134,32 @@ window.addEventListener('keydown', function (e) {
         focusInModal(e)
     }
 })
+
+
+
+
+
+
+/*
+// Upload de photos dans la Modal
+function postNewWork() {
+    let token = sessionStorage.getItem("token");
+    const select = document.getElementById("addPhotoCategory");
+    //on récupère les data du form
+    const title = document.getElementById("addPhotoTitle").value;
+    const categoryName = select.options[select.selectedIndex].innerText;
+    const categoryId = select.options[select.selectedIndex].id;
+    const image = document.getElementById("photo").files[0];
+    //check form validity
+    let validity = formValidation(image, title, categoryId);
+    if (validity === true) {
+      //create FormData
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("title", title);
+      formData.append("category", categoryId);
+      // send collected data to API
+      sendNewData(token, formData, title, categoryName);
+    }
+  };
+*/

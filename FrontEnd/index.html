@@ -31,7 +31,7 @@
 			<a href="#contact"><li>contact</li></a>
 			<a href="./login.html"><li id="login">login</li></a>
 			<a href=""><li id="logout" style="display: none">logout</li></a>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li><img id="instaIcon" src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
 </header>
@@ -83,34 +83,36 @@
 <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 	<div class="modal-wrapper js-modal-stop">
 		<div class="modalButtons">
-			<button type="button" class="backToModal1" aria-hidden="true" style="display: none;"><i class="fa-solid fa-arrow-left"></i></button>
 			<button type="button" class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+			<button type="button" class="backToModal1" aria-hidden="true" style="display: none;"><i class="fa-solid fa-arrow-left"></i></button>
 		</div>
 		<div id="modal1Div" class="modal1Div" aria-hidden="false" style="display: null;">
 			<h3 class="titlemodal">Galerie photos</h3>
 			<div class="modal-gallery"></div>
-			<a href="#modal2" class="addPhoto">Ajouter une photo</a>
+			<button type="button" class="addPhoto">Ajouter une photo</button>
 		</div>	
 <!-- Div section for the 2nd window Modal -->	
 		<div id="modal2Div" class="modal2Div" aria-hidden="true" style="display: none;">
 			<h3 class="titlemodal">Ajout photo</h3>
 			<div class="modal-addPhotoDiv">
-				<div class="blueDivAdd">
-					<img src="./assets/images/addimg.png">
-					<button class="addPhotoFormBtn">
-						<input type="file" id="addPhotoForm" name="addPhotoForm" accept="image/png, image/jpeg"/>
-						<p>+ Ajouter une photo</p>
-					</button>
-					<p class="imgFormat">jpg, png : 4mo max</p>
-				</div>
-				<label for="addPhotoTitle">Titre</label>
-				<input type="text" id="addPhotoTitle" name="addPhotoTitle"/>
-				<label for="addPhotoCategory">Catégorie</label>
-				<select class ="addPhotoCategory" id="addPhotoCategory" name="addPhotoCategory">
-					<!-- <option value=""></option> -->
-				</select>
+				<form id="photoForm" name="photoForm">
+					<div class="blueDivAdd">
+						<img src="./assets/images/addimg.png">
+						<button type="button" class="addPhotoFormBtn">
+							<input type="file" id="addPhotoImg" name="addPhotoImg" accept="image/png, image/jpeg"/>
+							<p>+ Ajouter une photo</p>
+						</button>
+						<p class="imgFormat">jpg, png : 4mo max</p>
+					</div>
+					<label for="addPhotoTitle">Titre</label>
+					<input type="text" id="addPhotoTitle" name="addPhotoTitle"/>
+					<label for="addPhotoCategory">Catégorie</label>
+					<select class ="addPhotoCategory" id="addPhotoCategory" name="addPhotoCategory">
+						<option value=""></option>
+					</select>
+				</form>
 			</div>
-		<button class="validatePhoto">Valider</button>
+		<button type="submit" class="submitPhoto">Valider</button>
 		</div>
 	</div>
 </aside>

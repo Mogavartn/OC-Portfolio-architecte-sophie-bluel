@@ -102,10 +102,11 @@ nav li {
 
 nav a {
 	text-decoration: none;
+	color: #000000;
 }
 
 nav a:visited {
-	color:inherit;
+	color:black;
 }
 
 li:hover {
@@ -497,7 +498,7 @@ input[type="submit"]{
 	color: white;
 	padding: 3px;
 	cursor: pointer;
-	height: 15px;
+	height: 25px;
 }
 
 
@@ -572,14 +573,14 @@ input[type="submit"]{
 	left: 148px;
 	color: #306685;
 }
-#addPhotoForm {
+#addPhotoImg {
 	z-index: 1;
 	height: 36px;
 	width: 175px;
 	opacity: 0;
 }
 .addPhotoFormBtn:hover,
-#addPhotoForm:hover,
+#addPhotoImg:hover,
 .addPhotoFormBtn p:hover {
 	cursor: pointer;
 }
@@ -597,7 +598,7 @@ input[type="submit"]{
 	margin-top: 10px;
 }
 
-.validatePhoto {
+.submitPhoto {
 	display: flex;
 	justify-self: center;
 	margin: 1em 2em 2em 2em;
@@ -612,7 +613,7 @@ input[type="submit"]{
 	transition: transform 200ms ease-in-out;
 }
 
-.validatePhoto:hover {
+.submitPhoto:hover {
 	transform: scale(1.1);
 	color: white;
 	cursor: pointer;
