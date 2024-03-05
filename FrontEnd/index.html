@@ -100,9 +100,10 @@
 			<div class="modal-addPhotoDiv">
 				<form id="photoForm" name="photoForm">
 					<div class="blueDivAdd">
-						<img src="./assets/images/addimg.png">
+						<div class="imgPreview" aria-hidden="true" style="display: none"></div>
+						<img src="./assets/images/addimg.png" class="imageWaiting" aria-hidden="false" style="display: null;">
 						<button type="button" class="addPhotoFormBtn">
-							<input type="file" id="addPhotoImg" name="addPhotoImg" accept="image/png, image/jpeg"/>
+							<input type="file" class="addPhotoFormBtnInput" id="addPhotoImg" name="addPhotoImg" accept="image/png, image/jpeg"/>
 							<p>+ Ajouter une photo</p>
 						</button>
 						<p class="imgFormat">jpg, png : 4mo max</p>

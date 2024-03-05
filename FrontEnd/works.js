@@ -118,7 +118,6 @@ for (let category of categories) {
 async function deleteWorks() {
     // Cible tous les icônes de suppression
     const trashBtns = document.querySelectorAll(".trashBtn");
-
     // Itère sur chaque bouton de suppression et ajoute un écouteur d'événements
     trashBtns.forEach(trashBtn => {
         trashBtn.addEventListener("click", async () => {
@@ -164,3 +163,38 @@ async function deleteWorks() {
 }
 // Appel de la fonction pour ajouter les écouteurs d'événements une fois que les éléments sont générés
 deleteWorks();
+
+// Ajout de Works dans la Modal
+
+// Sélection de l'élément input de type file
+const addPhotoFormBtn = document.querySelector(".addPhotoFormBtnInput");
+const imgPreview = document.querySelector(".imgPreview");
+const imageWaiting = document.querySelector(".imageWaiting");
+
+// Ajout d'un écouteur d'événements pour le changement de fichier
+addPhotoFormBtn.addEventListener("change", function() {
+    getImgData();
+});
+function getImgData() {
+	const files = addPhotoFormBtn.files[0];
+	if (files) {
+		const fileReader = new FileReader();
+        imageWaiting.setAttribute('aria-hidden', true) ;
+        imageWaiting.style.display = "none";
+		fileReader.readAsDataURL(files);
+		fileReader.addEventListener("load", function () {
+			imgPreview.style.display = "block";
+			imgPreview.innerHTML = '<img src="' + this.result + '" />';
+		});
+	}
+}
+/*
+async function addWorks() {
+    // Cible le bouton d'ajout de Work
+    const addPhotoFormBtn = document.querySelector(".addPhotoFormBtn");
+    // On écoute l'evenement de click
+    addPhotoFormBtn.addEventListener("click", async () => {
+    
+    } 
+}
+*/
