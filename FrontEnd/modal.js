@@ -35,23 +35,29 @@ const openModal1 = function (e) {
     // Ecoute des clicks pour basculer entre les Modales
     // On passe à la 2ème fenêtre de Modal
     document.querySelector(".addPhoto").addEventListener('click', function() {
-        const backToModal1 = document.querySelector(".backToModal1");
+    const modalButtons1 = document.querySelector(".modalButtons1");
+    const modalButtons2 = document.querySelector(".modalButtons2");
         modal1Div.setAttribute('aria-hidden', true) ;
         modal1Div.style.display = "none";
         modal2Div.setAttribute('aria-hidden', false) ;
         modal2Div.style.display = null;
-        backToModal1.setAttribute('aria-hidden', false) ;
-        backToModal1.style.display = null;
+        modalButtons1.setAttribute('aria-hidden', true) ;
+        modalButtons1.style.display = "none";
+        modalButtons2.setAttribute('aria-hidden', false) ;
+        modalButtons2.style.display = null;
     })
     // On revient sur la 1ère fenêtre de Modal
     document.querySelector(".backToModal1").addEventListener('click', function() {
-        const backToModal1 = document.querySelector(".backToModal1");
+    const modalButtons1 = document.querySelector(".modalButtons1");
+    const modalButtons2 = document.querySelector(".modalButtons2");
         modal1Div.setAttribute('aria-hidden', false) ;
         modal1Div.style.display = null;
         modal2Div.setAttribute('aria-hidden', true) ;
         modal2Div.style.display = "none";
-        backToModal1.setAttribute('aria-hidden', true) ;
-        backToModal1.style.display = "none";
+        modalButtons1.setAttribute('aria-hidden', false) ;
+        modalButtons1.style.display = null;
+        modalButtons2.setAttribute('aria-hidden', true) ;
+        modalButtons2.style.display = "none";
     })
 }
 

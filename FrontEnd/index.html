@@ -82,16 +82,19 @@
 <!-- Aside section for the Modal -->
 <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none;">
 	<div class="modal-wrapper js-modal-stop">
-		<div class="modalButtons">
+		<div class="modalButtons1" aria-hidden="false" style="display: null">
 			<button type="button" class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
-			<button type="button" class="backToModal1" aria-hidden="true" style="display: none;"><i class="fa-solid fa-arrow-left"></i></button>
 		</div>
 		<div id="modal1Div" class="modal1Div" aria-hidden="false" style="display: null;">
 			<h3 class="titlemodal">Galerie photos</h3>
 			<div class="modal-gallery"></div>
 			<button type="button" class="addPhoto">Ajouter une photo</button>
 		</div>	
-<!-- Div section for the 2nd window Modal -->	
+<!-- Div section for the 2nd window Modal -->
+		<div class="modalButtons2" aria-hidden="true" style="display: none;">
+			<button type="button" class="backToModal1" ><i class="fa-solid fa-arrow-left"></i></button>
+			<button type="button" class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+		</div>
 		<div id="modal2Div" class="modal2Div" aria-hidden="true" style="display: none;">
 			<h3 class="titlemodal">Ajout photo</h3>
 			<div class="modal-addPhotoDiv">

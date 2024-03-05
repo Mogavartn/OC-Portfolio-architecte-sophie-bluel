@@ -115,29 +115,31 @@ for (let category of categories) {
 }
 
 // Fonction de suppression d'un Work dans la Modal
-function deleteWorks() {
+function deleteWorks(works) {
     // Cible l'icône de suppression
     const trashBtn = document.querySelector(".trashBtn");
     // Suppression projet au clic sur l'icône
-    trashBtn.addEventListener("click", async () => {
-        const token = JSON.parse(sessionStorage.getItem("token"));
-        let id = works.id;
+    for (let i = 0; i < trashBtn.length; i++) {
+        trashBtn.addEventListener("click", async () => {
+            const token = JSON.parse(sessionStorage.getItem("token"));
+            let id = works.id;
 
-        try {
-            const response = await fetch(`http://localhost:5678/api/works/${id}`, {
-                method: "DELETE",
-                headers: {
-                    "Accept": "*/*",
-                    "Authorization": `Bearer ${token.token}`
+            try {
+                const response = await fetch(`http://localhost:5678/api/works/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Accept": "*/*",
+                        "Authorization": `Bearer ${token.token}`
+                    }
+                })
+                if (response.ok) {
+                    // On met l'affichage à jour
+                    document.querySelector(".workContainer").innerHTML = "";
+                    const updatedWorks = await loadWorks();
+                    genModalWorks(updatedWorks);
+                    genWorks(updatedWorks);
                 }
-            })
-            if (response.ok) {
-                // On met l'affichage à jour
-                document.querySelector(".workContainer").innerHTML = "";
-                const updatedWorks = await loadWorks();
-                genModalWorks(updatedWorks);
-                genWorks(updatedWorks);
-            }
-        } catch (error) { alert("problème de connexion au serveur") }
-    })
+            }   catch (error) { alert("problème de connexion au serveur") }
+        })
+    }
 }
