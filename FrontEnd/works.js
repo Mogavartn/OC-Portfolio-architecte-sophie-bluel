@@ -115,31 +115,52 @@ for (let category of categories) {
 }
 
 // Fonction de suppression d'un Work dans la Modal
-function deleteWorks(works) {
-    // Cible l'icône de suppression
-    const trashBtn = document.querySelector(".trashBtn");
-    // Suppression projet au clic sur l'icône
-    for (let i = 0; i < trashBtn.length; i++) {
+async function deleteWorks() {
+    // Cible tous les icônes de suppression
+    const trashBtns = document.querySelectorAll(".trashBtn");
+
+    // Itère sur chaque bouton de suppression et ajoute un écouteur d'événements
+    trashBtns.forEach(trashBtn => {
         trashBtn.addEventListener("click", async () => {
-            const token = JSON.parse(sessionStorage.getItem("token"));
-            let id = works.id;
+            // Demander une confirmation avant la suppression
+            const confirmation = confirm("Voulez-vous vraiment supprimer cet élément ?");
+            if (!confirmation) return; // Si l'utilisateur annule, sortir de la fonction
+
+            const token = window.sessionStorage.getItem("token");
+            const id = trashBtn.parentElement.dataset.id; // Obtenez l'ID du parent de l'icône
 
             try {
                 const response = await fetch(`http://localhost:5678/api/works/${id}`, {
                     method: "DELETE",
                     headers: {
                         "Accept": "*/*",
-                        "Authorization": `Bearer ${token.token}`
+                        "Authorization": `Bearer ${token.token}`,
                     }
-                })
+                });
+
                 if (response.ok) {
-                    // On met l'affichage à jour
-                    document.querySelector(".workContainer").innerHTML = "";
+                    // Supprimez le parent de l'icône de suppression
+                    const parentElement = trashBtn.parentElement;
+                    parentElement.remove();
+                    // Réception de response en text
+                    const responseData = await response.text(); 
+
+                // Check if response data is not empty
+                if (responseData.trim() !== "") {
+                    console.log("Réponse après suppression :", responseData);
+                    }
+                    // Mise à jour des affichages après la suppression réussie
                     const updatedWorks = await loadWorks();
-                    genModalWorks(updatedWorks);
                     genWorks(updatedWorks);
+                    genModalWorks(updatedWorks);
+                } else {
+                    console.error("La suppression de l'élément a échoué. Statut de réponse :", response.status);
                 }
-            }   catch (error) { alert("problème de connexion au serveur") }
-        })
-    }
+            } catch (error) {
+                console.error("Problème lors de la suppression de l'élément :", error);
+            }
+        });
+    });
 }
+// Appel de la fonction pour ajouter les écouteurs d'événements une fois que les éléments sont générés
+deleteWorks();
