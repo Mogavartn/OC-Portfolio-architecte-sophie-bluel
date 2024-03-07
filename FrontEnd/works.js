@@ -3,35 +3,37 @@ import { openModal1 } from './modal.js';
 import { closeModal1 } from './modal.js';
 
 // Récupération des travaux eventuellement stockées dans le localStorage
-let works = window.localStorage.getItem('works');
 async function loadWorks() {
-if (works === null){
-    // Récupération des travaux depuis l'API
-    const workReponse = await fetch('http://localhost:5678/api/works');
-    works = await workReponse.json();
-    // Transformation des travaux en JSON
-    const listWorks = JSON.stringify(works);
-    // Stockage des informations dans le localStorage
-    window.localStorage.setItem("works", listWorks);
-}else{
-    works = JSON.parse(works);
-}   return works;
+    const worksToParse = window.localStorage.getItem('works');
+    if (!worksToParse){
+        // Récupération des travaux depuis l'API
+        const worksReponse = await fetch('http://localhost:5678/api/works');
+        const works = await worksReponse.json();
+        // Transformation des travaux en JSON
+        const worksString = JSON.stringify(works);
+        // Stockage des informations dans le localStorage
+        window.localStorage.setItem("works", worksString);
+        return works;
+    }else{
+        const works = JSON.parse(worksToParse);
+        return works;
+    }
 }
-loadWorks();
 
 // Récupération des catégories
-let categories = window.localStorage.getItem('categories');
 async function loadCategories() {
-if (categories === null) {
-    const catReponse = await fetch('http://localhost:5678/api/categories');
-    categories = await catReponse.json();
-    const listCat = JSON.stringify(categories);
-    window.localStorage.setItem("categories", listCat);
-}else{
-    categories = JSON.parse(categories);
-}   return categories;
+    const categoriesToParse = window.localStorage.getItem('categories');
+    if (categoriesToParse === null) {
+        const categoriesReponse = await fetch('http://localhost:5678/api/categories');
+        const categories = await categoriesReponse.json();
+        const categoriesString = JSON.stringify(categories);
+        window.localStorage.setItem("categories", categoriesString);
+        return categories;
+    }else{
+        const categories = JSON.parse(categoriesToParse);
+        return categories;
+    }   
 }
-loadCategories();
 
 // Génération des travaux et intégration
 function genWorks(works){
@@ -56,36 +58,6 @@ function genWorks(works){
         workElement.appendChild(titleElement);
     }
 }
-genWorks(works);
-
-// Création et activation des boutons de filtres
-// Bouton affichage de tous projets
-const allButton = document.createElement("button");
-allButton.className = "filterButtons";
-filterBar.appendChild(allButton);
-allButton.textContent = "Tous";
-allButton.addEventListener("click", function () {
-    window.localStorage.removeItem("works");
-    document.querySelector(".gallery").innerHTML = "";
-    genWorks(works);
-});
-
-// Boutons par catégories
-for (let category of categories) {
-    const filterButtons = document.createElement("button");
-    filterButtons.className = "filterButtons";
-    filterButtons.dataset.id = category.id;
-    filterButtons.textContent = category.name;
-    filterBar.appendChild(filterButtons);
-
-    filterButtons.addEventListener("click", function () {
-    const worksObjects = works.filter(function (works) {
-        return works.category.id === category.id;
-    });
-    document.querySelector(".gallery").innerHTML = "";
-    genWorks(worksObjects);
-});
-}  
 
 //MODAL
 // Création de la gallerie dans Modal1
@@ -107,15 +79,6 @@ function genModalWorks(works){
         trashBtn.type = "button";
         workElement.appendChild(trashBtn);
     }
-}
-genModalWorks(works);
-
-// Récupération des catégories pour intégration dans Select de la Modal
-for (let category of categories) {
-    let categorySelection = document.createElement("option");
-    categorySelection.setAttribute("value", `${category.id}`);
-    categorySelection.innerHTML = `${category.name}`;
-    document.getElementById("addPhotoCategory").appendChild(categorySelection);
 }
 
 // Fonction de suppression d'un Work dans la Modal
@@ -165,8 +128,6 @@ async function deleteWorks() {
         });
     });
 }
-// Appel de la fonction pour ajouter les écouteurs d'événements une fois que les éléments sont générés
-deleteWorks();
 
 // Ajout de Works dans la Modal
 // Sélection de l'élément input de type file
@@ -249,11 +210,57 @@ async function postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory
             },
             body: formData
         })
+        console.log(response);
         if (response.ok) {
             const works = await loadWorks();
             genModalWorks(works);
             genWorks(works);
-            closeModal1();
         }
     } catch (error) { alert("problème de connexion au serveur") }
 }
+
+// EXEC
+const works = await loadWorks();
+const categories = await loadCategories();
+genWorks(works);
+genModalWorks(works);
+
+// Création et activation des boutons de filtres
+// Bouton affichage de tous projets
+const allButton = document.createElement("button");
+allButton.className = "filterButtons";
+filterBar.appendChild(allButton);
+allButton.textContent = "Tous";
+allButton.addEventListener("click", function () {
+    window.localStorage.removeItem("works");
+    document.querySelector(".gallery").innerHTML = "";
+    genWorks(works);
+});
+
+// Boutons par catégories
+for (let category of categories) {
+    const filterButtons = document.createElement("button");
+    filterButtons.className = "filterButtons";
+    filterButtons.dataset.id = category.id;
+    filterButtons.textContent = category.name;
+    filterBar.appendChild(filterButtons);
+
+    filterButtons.addEventListener("click", function () {
+    const worksObjects = works.filter(function (works) {
+        return works.category.id === category.id;
+    });
+    document.querySelector(".gallery").innerHTML = "";
+    genWorks(worksObjects);
+});
+}  
+
+// Récupération des catégories pour intégration dans Select de la Modal
+for (let category of categories) {
+    let categorySelection = document.createElement("option");
+    categorySelection.setAttribute("value", `${category.id}`);
+    categorySelection.innerHTML = `${category.name}`;
+    document.getElementById("addPhotoCategory").appendChild(categorySelection);
+}
+
+// Appel de la fonction pour ajouter les écouteurs d'événements une fois que les éléments sont générés
+deleteWorks();
