@@ -1,7 +1,3 @@
-// Import des fonctions nécéssaires présentes dans les autres modules JS
-import { openModal1 } from './modal.js';
-import { closeModal1 } from './modal.js';
-
 // Récupération des travaux eventuellement stockées dans le localStorage
 let works = window.localStorage.getItem('works');
 async function loadWorks() {
@@ -153,7 +149,7 @@ async function deleteWorks() {
                     console.log("Réponse après suppression :", responseData);
                     }
                     // Mise à jour des affichages après la suppression réussie
-                    const updatedWorks = await loadWorks();
+                    const updatedWorks = await loadWorks(works);
                     genWorks(updatedWorks);
                     genModalWorks(updatedWorks);
                 } else {
@@ -253,7 +249,6 @@ async function postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory
             const works = await loadWorks();
             genModalWorks(works);
             genWorks(works);
-            closeModal1();
         }
     } catch (error) { alert("problème de connexion au serveur") }
 }

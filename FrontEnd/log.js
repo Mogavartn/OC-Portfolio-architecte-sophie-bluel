@@ -79,5 +79,5 @@ if (token) {
 // Déconnexion
 const logout = document.getElementById("logout");
 logout.addEventListener("click", (event) => {
-  window.sessionStorage.clear();
+    window.sessionStorage.clear();
 });
