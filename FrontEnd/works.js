@@ -1,3 +1,7 @@
+// Import des fonctions nécéssaires présentes dans les autres modules JS
+import { openModal1 } from './modal.js';
+import { closeModal1 } from './modal.js';
+
 // Récupération des travaux eventuellement stockées dans le localStorage
 let works = window.localStorage.getItem('works');
 async function loadWorks() {
@@ -133,7 +137,7 @@ async function deleteWorks() {
                     method: "DELETE",
                     headers: {
                         "Accept": "*/*",
-                        "Authorization": `Bearer ${token.token}`,
+                        "Authorization": `Bearer ${token}`,
                     }
                 });
 
@@ -165,36 +169,91 @@ async function deleteWorks() {
 deleteWorks();
 
 // Ajout de Works dans la Modal
-
 // Sélection de l'élément input de type file
-const addPhotoFormBtn = document.querySelector(".addPhotoFormBtnInput");
-const imgPreview = document.querySelector(".imgPreview");
+const imgPreview = document.querySelector(".blueDivAdd");
+// Sélection des parties à cacher lorsque le preview apparait
+const addPhotoFormBtnInput = document.querySelector(".addPhotoFormBtnInput");
+const addPhotoFormBtnAll = document.querySelector(".addPhotoFormBtn");
 const imageWaiting = document.querySelector(".imageWaiting");
-
+const imgFormat = document.querySelector(".imgFormat");
 // Ajout d'un écouteur d'événements pour le changement de fichier
-addPhotoFormBtn.addEventListener("change", function() {
+addPhotoFormBtnInput.addEventListener("change", function() {
     getImgData();
 });
 function getImgData() {
-	const files = addPhotoFormBtn.files[0];
+	const files = addPhotoFormBtnInput.files[0];
 	if (files) {
 		const fileReader = new FileReader();
         imageWaiting.setAttribute('aria-hidden', true) ;
         imageWaiting.style.display = "none";
+        addPhotoFormBtnAll.setAttribute('aria-hidden', true) ;
+        addPhotoFormBtnAll.style.display = "none";
+        imgFormat.setAttribute('aria-hidden', true) ;
+        imgFormat.style.display = "none";
 		fileReader.readAsDataURL(files);
 		fileReader.addEventListener("load", function () {
-			imgPreview.style.display = "block";
-			imgPreview.innerHTML = '<img src="' + this.result + '" />';
-		});
+		imgPreview.style.display = "null";
+		imgPreview.innerHTML = '<img src="' + this.result + '" />';
+        });
 	}
 }
-/*
-async function addWorks() {
-    // Cible le bouton d'ajout de Work
-    const addPhotoFormBtn = document.querySelector(".addPhotoFormBtn");
-    // On écoute l'evenement de click
-    addPhotoFormBtn.addEventListener("click", async () => {
-    
-    } 
+
+// Création de la fonction de validation du formulaire d'envoi de Works
+// On écoute les événements de modification des champs
+addPhotoFormBtnInput.addEventListener("change", validateForm);
+
+const addPhotoTitle = document.querySelector("#addPhotoTitle");
+addPhotoTitle.addEventListener("input", validateForm);
+
+const addPhotoCategory = document.querySelector("#addPhotoCategory");
+addPhotoCategory.addEventListener("change", validateForm);
+
+const submitPhoto = document.querySelector(".submitPhoto");
+
+// Validation du formulaire et activation du bouton Submit d'envoi
+function validateForm() {
+    // On vérifie si les champs sont remplis
+    if (addPhotoFormBtnInput.value !== "" && addPhotoTitle.value !== "" && addPhotoCategory.value !== "0") {
+        submitPhoto.disabled = false; // On active le bouton "submit"
+        submitPhoto.classList.add("sendForm")
+    } else {
+        submitPhoto.classList.remove("sendForm")
+        submitPhoto.disabled = true; // On désactive le bouton "submit"
+    }
 }
-*/
+// On écoute l'envoi du nouveau projet
+submitPhoto.addEventListener("click", (e) => {
+    postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory);
+    validateForm();
+    e.preventDefault(); 
+})
+// Function d'envoi du nouveau Work
+async function postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory) {
+
+    const formData = new FormData();
+    const newWorkImg = addPhotoFormBtnInput.files[0];
+    const newWorkTitle = addPhotoTitle.value;
+    const newWorkCategory = addPhotoCategory.value;
+    const token = window.sessionStorage.getItem("token");
+
+    formData.append("image", newWorkImg);
+    formData.append("title", newWorkTitle);
+    formData.append("category", newWorkCategory);
+
+    try {
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                "accept": "application/json",
+                "Authorization": `Bearer ${token}`,
+            },
+            body: formData
+        })
+        if (response.ok) {
+            const works = await loadWorks();
+            genModalWorks(works);
+            genWorks(works);
+            closeModal1();
+        }
+    } catch (error) { alert("problème de connexion au serveur") }
+}

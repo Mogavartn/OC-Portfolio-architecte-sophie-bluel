@@ -10,7 +10,7 @@ let focusablesElements = []
 let previouslyFocusedElement = null
 
 // Création de la fonction openModal1
-const openModal1 = function (e) {
+export const openModal1 = function (e) {
     // Prevent du click sur le lien 
     e.preventDefault()
     // On cible la modale
@@ -30,6 +30,7 @@ const openModal1 = function (e) {
     modal1.addEventListener('click', closeModal1)
     // Recherche de l'élement de fermeture de modal
     modal1.querySelector('.js-modal-close').addEventListener('click', closeModal1)
+    modal1.querySelector('.js-modal-close2').addEventListener('click', closeModal1)
     // Intégration du stop propagation
     modal1.querySelector('.js-modal-stop').addEventListener('click', stopPropagation)
     // Ecoute des clicks pour basculer entre les Modales
@@ -63,7 +64,7 @@ const openModal1 = function (e) {
 
 // Création de la fonction de fermeture closeModal1
 // Fonction inverse de l'ouverture 
-const closeModal1 = function(e) {
+export const closeModal1 = function(e) {
     // On bloque la tentative de fermeture d'une modal non existante
     if (modal1 === null) return
     // Si le focus existait on le reprend et lui redonne le focus
@@ -76,6 +77,7 @@ const closeModal1 = function(e) {
     // Suppression de l'Event Listener
     modal1.removeEventListener('click', closeModal1)
     modal1.querySelector('.js-modal-close').removeEventListener('click', closeModal1)
+    modal1.querySelector('.js-modal-close2').addEventListener('click', closeModal1)
     // Suppression du stop propagatrion
     modal1.querySelector('.js-modal-stop').removeEventListener('click', stopPropagation)
     // On attend la fin de l'animation
@@ -140,32 +142,3 @@ window.addEventListener('keydown', function (e) {
         focusInModal(e)
     }
 })
-
-
-
-
-
-
-/*
-// Upload de photos dans la Modal
-function postNewWork() {
-    let token = sessionStorage.getItem("token");
-    const select = document.getElementById("addPhotoCategory");
-    //on récupère les data du form
-    const title = document.getElementById("addPhotoTitle").value;
-    const categoryName = select.options[select.selectedIndex].innerText;
-    const categoryId = select.options[select.selectedIndex].id;
-    const image = document.getElementById("photo").files[0];
-    //check form validity
-    let validity = formValidation(image, title, categoryId);
-    if (validity === true) {
-      //create FormData
-      const formData = new FormData();
-      formData.append("image", image);
-      formData.append("title", title);
-      formData.append("category", categoryId);
-      // send collected data to API
-      sendNewData(token, formData, title, categoryName);
-    }
-  };
-*/

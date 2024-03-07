@@ -93,30 +93,29 @@
 <!-- Div section for the 2nd window Modal -->
 		<div class="modalButtons2" aria-hidden="true" style="display: none;">
 			<button type="button" class="backToModal1" ><i class="fa-solid fa-arrow-left"></i></button>
-			<button type="button" class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
+			<button type="button" class="js-modal-close2"><i class="fa-solid fa-xmark"></i></button>
 		</div>
 		<div id="modal2Div" class="modal2Div" aria-hidden="true" style="display: none;">
 			<h3 class="titlemodal">Ajout photo</h3>
 			<div class="modal-addPhotoDiv">
 				<form id="photoForm" name="photoForm">
 					<div class="blueDivAdd">
-						<div class="imgPreview" aria-hidden="true" style="display: none"></div>
 						<img src="./assets/images/addimg.png" class="imageWaiting" aria-hidden="false" style="display: null;">
-						<button type="button" class="addPhotoFormBtn">
+						<button type="button" class="addPhotoFormBtn" aria-hidden="false" style="display: null;">
 							<input type="file" class="addPhotoFormBtnInput" id="addPhotoImg" name="addPhotoImg" accept="image/png, image/jpeg"/>
 							<p>+ Ajouter une photo</p>
 						</button>
-						<p class="imgFormat">jpg, png : 4mo max</p>
+						<p class="imgFormat" aria-hidden="false" style="display: null;">jpg, png : 4mo max</p>
 					</div>
 					<label for="addPhotoTitle">Titre</label>
 					<input type="text" id="addPhotoTitle" name="addPhotoTitle"/>
 					<label for="addPhotoCategory">Catégorie</label>
 					<select class ="addPhotoCategory" id="addPhotoCategory" name="addPhotoCategory">
-						<option value=""></option>
+						<option value="0"></option>
 					</select>
 				</form>
 			</div>
-		<button type="submit" class="submitPhoto">Valider</button>
+		<button type="submit" class="submitPhoto" disabled="true">Valider</button>
 		</div>
 	</div>
 </aside>
