@@ -1,7 +1,3 @@
-// Import des fonctions nécéssaires présentes dans les autres modules JS
-import { openModal1 } from './modal.js';
-import { closeModal1 } from './modal.js';
-
 // Récupération des travaux eventuellement stockées dans le localStorage
 async function loadWorks() {
     const worksToParse = window.localStorage.getItem('works');
@@ -33,6 +29,10 @@ async function loadCategories() {
         const categories = JSON.parse(categoriesToParse);
         return categories;
     }   
+}
+
+function cleanWorksAndCategories() {
+    window.localStorage.clear();
 }
 
 // Génération des travaux et intégration
@@ -116,7 +116,9 @@ async function deleteWorks() {
                     console.log("Réponse après suppression :", responseData);
                     }
                     // Mise à jour des affichages après la suppression réussie
+                    cleanWorksAndCategories();
                     const updatedWorks = await loadWorks();
+                    loadCategories();
                     genWorks(updatedWorks);
                     genModalWorks(updatedWorks);
                 } else {
@@ -161,19 +163,14 @@ function getImgData() {
 }
 
 // Création de la fonction de validation du formulaire d'envoi de Works
-// On écoute les événements de modification des champs
-addPhotoFormBtnInput.addEventListener("change", validateForm);
-
-const addPhotoTitle = document.querySelector("#addPhotoTitle");
-addPhotoTitle.addEventListener("input", validateForm);
-
-const addPhotoCategory = document.querySelector("#addPhotoCategory");
-addPhotoCategory.addEventListener("change", validateForm);
-
-const submitPhoto = document.querySelector(".submitPhoto");
-
 // Validation du formulaire et activation du bouton Submit d'envoi
 function validateForm() {
+addPhotoFormBtnInput.addEventListener("change", validateForm);
+const addPhotoTitle = document.getElementById("addPhotoTitle");
+addPhotoTitle.addEventListener("input", validateForm);
+const addPhotoCategory = document.getElementById("addPhotoCategory");
+addPhotoCategory.addEventListener("change", validateForm);
+const submitPhoto = document.getElementById("submitPhoto");
     // On vérifie si les champs sont remplis
     if (addPhotoFormBtnInput.value !== "" && addPhotoTitle.value !== "" && addPhotoCategory.value !== "0") {
         submitPhoto.disabled = false; // On active le bouton "submit"
@@ -183,53 +180,67 @@ function validateForm() {
         submitPhoto.disabled = true; // On désactive le bouton "submit"
     }
 }
-// On écoute l'envoi du nouveau projet
-submitPhoto.addEventListener("click", async (e) => {
-    e.preventDefault(); 
-    validateForm();
-    await postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory);
-})
-// Function d'envoi du nouveau Work
-async function postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory) {
-    console.log("Envoi d'un nouveau travail...");
 
-    const formData = new FormData();
-    const newWorkImg = addPhotoFormBtnInput.files[0];
-    const newWorkTitle = addPhotoTitle.value;
-    const newWorkCategory = addPhotoCategory.value;
+// On écoute les événements de modification des champs
+const submitPhoto = document.getElementById("submitPhoto");
+submitPhoto.addEventListener("click", postNewWork);
+// Ajouter un projet
+async function postNewWork(event) {
+    event.preventDefault();
+
+    const title = document.getElementById("addPhotoTitle").value;
+    const categoryId = document.getElementById("addPhotoCategory").value;
+    const image = addPhotoFormBtnInput.files[0];
     const token = window.sessionStorage.getItem("token");
 
-    formData.append("image", newWorkImg);
-    formData.append("title", newWorkTitle);
-    formData.append("category", newWorkCategory);
-
+    if (title === "" || categoryId === "" || image === undefined) {
+        alert("Merci de remplir tous les champs");
+        return;
+    } else if (categoryId !== "1" && categoryId !== "2" && categoryId !== "3") {
+        alert("Merci de choisir une catégorie valide");
+        return;
+        } else {
     try {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("category", categoryId);
+        formData.append("image", image);
+
         const response = await fetch("http://localhost:5678/api/works", {
             method: "POST",
             headers: {
-                "accept": "application/json",
-                "Authorization": `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
             },
             body: formData,
-        })
-        console.log("Réponse du serveur :", response);
+        });
 
-        if (response.ok) {
-            const newWorks = await loadWorks();
-            genModalWorks(newWorks);
-            genWorks(newWorks);
+        if (response.status === 201) {
+            alert("Projet ajouté avec succès :)");
+            cleanWorksAndCategories();
+            const updatedWorks = await loadWorks();
+            loadCategories();
+            genModalWorks(updatedWorks);
+            genWorks(updatedWorks);    
+        } else if (response.status === 400) {
+            alert("Merci de remplir tous les champs");
+        } else if (response.status === 500) {
+            alert("Erreur serveur");
+        } else if (response.status === 401) {
+            alert("Vous n'êtes pas autorisé à ajouter un projet");
+            window.location.href = "login.html";
         }
-    } catch (error) 
-        {   console.error("Erreur lors de l'envoi du travail :", error);
-            alert("problème de connexion au serveur") 
-        }
-}
+    } catch (error) {
+        console.log(error);
+    }
+}}
+
 
 // EXEC
 const works = await loadWorks();
 const categories = await loadCategories();
 genWorks(works);
 genModalWorks(works);
+validateForm();
 
 // Création et activation des boutons de filtres
 // Bouton affichage de tous projets
