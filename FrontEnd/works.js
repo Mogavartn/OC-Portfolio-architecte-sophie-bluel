@@ -131,9 +131,9 @@ async function deleteWorks() {
 
 // Ajout de Works dans la Modal
 // Sélection de l'élément input de type file
+const addPhotoFormBtnInput = document.querySelector(".addPhotoFormBtnInput");
 const imgPreview = document.querySelector(".blueDivAdd");
 // Sélection des parties à cacher lorsque le preview apparait
-const addPhotoFormBtnInput = document.querySelector(".addPhotoFormBtnInput");
 const addPhotoFormBtnAll = document.querySelector(".addPhotoFormBtn");
 const imageWaiting = document.querySelector(".imageWaiting");
 const imgFormat = document.querySelector(".imgFormat");
@@ -145,16 +145,17 @@ function getImgData() {
 	const files = addPhotoFormBtnInput.files[0];
 	if (files) {
 		const fileReader = new FileReader();
+        fileReader.readAsDataURL(files);
+		fileReader.addEventListener("load", function () {
+		imgPreview.style.display = "null";
+		imgPreview.innerHTML = '<img src="' + this.result + '" />';
+
         imageWaiting.setAttribute('aria-hidden', true) ;
         imageWaiting.style.display = "none";
         addPhotoFormBtnAll.setAttribute('aria-hidden', true) ;
         addPhotoFormBtnAll.style.display = "none";
         imgFormat.setAttribute('aria-hidden', true) ;
         imgFormat.style.display = "none";
-		fileReader.readAsDataURL(files);
-		fileReader.addEventListener("load", function () {
-		imgPreview.style.display = "null";
-		imgPreview.innerHTML = '<img src="' + this.result + '" />';
         });
 	}
 }
@@ -183,13 +184,14 @@ function validateForm() {
     }
 }
 // On écoute l'envoi du nouveau projet
-submitPhoto.addEventListener("click", (e) => {
-    postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory);
-    validateForm();
+submitPhoto.addEventListener("click", async (e) => {
     e.preventDefault(); 
+    validateForm();
+    await postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory);
 })
 // Function d'envoi du nouveau Work
 async function postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory) {
+    console.log("Envoi d'un nouveau travail...");
 
     const formData = new FormData();
     const newWorkImg = addPhotoFormBtnInput.files[0];
@@ -208,15 +210,19 @@ async function postNewWork(addPhotoFormBtnInput, addPhotoTitle, addPhotoCategory
                 "accept": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
-            body: formData
+            body: formData,
         })
-        console.log(response);
+        console.log("Réponse du serveur :", response);
+
         if (response.ok) {
-            const works = await loadWorks();
-            genModalWorks(works);
-            genWorks(works);
+            const newWorks = await loadWorks();
+            genModalWorks(newWorks);
+            genWorks(newWorks);
         }
-    } catch (error) { alert("problème de connexion au serveur") }
+    } catch (error) 
+        {   console.error("Erreur lors de l'envoi du travail :", error);
+            alert("problème de connexion au serveur") 
+        }
 }
 
 // EXEC
