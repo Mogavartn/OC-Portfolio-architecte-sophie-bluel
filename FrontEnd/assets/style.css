@@ -24,29 +24,36 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -63,6 +70,7 @@ header {
 	justify-content: space-between;
 	margin: 50px 0
 }
+
 section {
 	margin: 50px 0
 }
@@ -196,7 +204,6 @@ li:hover {
 
 #contact > * {
 	text-align: center;
-
 }
 
 #contact h2{
@@ -283,7 +290,6 @@ footer nav ul {
 
 #email, #password {
 	width: 380px;
-
 }
 
 #login label {
@@ -341,7 +347,6 @@ input[type="submit"]{
 	left: 50%;
 	transform: translateX(-50%);
 	height: 40px;
-	/*display: none;*/
 }
 
 .editmode-barcontent {
@@ -381,15 +386,6 @@ input[type="submit"]{
     box-shadow: 0 0 10px blue;
 }
 
-/*
-#modal1 {
-	z-index: 2;
-}
-
-#modal2 {
-	z-index: 1;
-}
-*/
 .modal-wrapper h3 {
 	position: relative;
 	font-size:x-large;
@@ -436,6 +432,16 @@ input[type="submit"]{
 .modal2Div {
 	display: grid;
 	align-items: center;
+}
+
+.js-modal {
+	text-decoration: none;
+	color: #000000;
+}
+
+.js-modal:hover {
+	color: #B1663C;
+	cursor: pointer;
 }
 
 .js-modal-close,
@@ -501,7 +507,6 @@ input[type="submit"]{
 	cursor: pointer;
 	height: 25px;
 }
-
 
 .addPhoto {
 	display: flex;
@@ -575,6 +580,7 @@ input[type="submit"]{
 	border-radius: 50px;
 	box-shadow:none;
 }
+
 .addPhotoFormBtn p {
 	z-index: 0;
 	display: flex;
@@ -583,12 +589,14 @@ input[type="submit"]{
 	left: 148px;
 	color: #306685;
 }
+
 #addPhotoImg {
 	z-index: 1;
 	height: 36px;
 	width: 175px;
 	opacity: 0;
 }
+
 .addPhotoFormBtn:hover,
 #addPhotoImg:hover,
 .addPhotoFormBtn p:hover {
@@ -647,7 +655,6 @@ input[type="submit"]{
 	color: white;
 	cursor: pointer;
 }
-
 
 /**************** Section Modal Animation *******************/
 .modal[aria-hidden = "true"] {

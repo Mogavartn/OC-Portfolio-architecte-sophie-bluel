@@ -1,7 +1,8 @@
+// SECTION DE CREATION DES FONCTIONS
 // Récupération des travaux eventuellement stockées dans le localStorage
 async function loadWorks() {
     const worksToParse = window.localStorage.getItem('works');
-    if (!worksToParse){
+    if (!worksToParse) {
         // Récupération des travaux depuis l'API
         const worksReponse = await fetch('http://localhost:5678/api/works');
         const works = await worksReponse.json();
@@ -10,13 +11,13 @@ async function loadWorks() {
         // Stockage des informations dans le localStorage
         window.localStorage.setItem("works", worksString);
         return works;
-    }else{
+    } else {
         const works = JSON.parse(worksToParse);
         return works;
     }
 }
 
-// Récupération des catégories
+// Récupération des catégories sur le même fonctionnement que les travaux
 async function loadCategories() {
     const categoriesToParse = window.localStorage.getItem('categories');
     if (categoriesToParse === null) {
@@ -25,20 +26,20 @@ async function loadCategories() {
         const categoriesString = JSON.stringify(categories);
         window.localStorage.setItem("categories", categoriesString);
         return categories;
-    }else{
+    } else {
         const categories = JSON.parse(categoriesToParse);
         return categories;
     }   
 }
 
+// Création de la fonction de nettoyage de Local Storage
 function cleanWorksAndCategories() {
     window.localStorage.clear();
 }
 
-// Génération des travaux et intégration
-function genWorks(works){
+// Addichage des travaux et intégration
+function displayWorks(works){
     for (let i = 0; i < works.length; i++) {
-
         const figure = works[i];
         // Récupération de l'élément du DOM qui accueillera les fiches figures
         const sectionGallery = document.querySelector(".gallery");
@@ -52,16 +53,16 @@ function genWorks(works){
         imageElement.alt = figure.title;        
         const titleElement = document.createElement("figcaption");
         titleElement.innerText = figure.title;
-        // Liaison de la balise figure a la section Gallery
+        // Liaison de la balise figure à la section Gallery
         sectionGallery.appendChild(workElement);
         workElement.appendChild(imageElement);
         workElement.appendChild(titleElement);
     }
 }
 
-//MODAL
+// SECTION POUR LA MODAL
 // Création de la gallerie dans Modal1
-function genModalWorks(works){
+function displayModalWorks(works){
     for (let i = 0; i < works.length; i++) {
         const figure = works[i];
         const sectionModalGallery = document.querySelector(".modal-gallery");
@@ -81,7 +82,7 @@ function genModalWorks(works){
     }
 }
 
-// Fonction de suppression d'un Work dans la Modal
+// SECTION SUPPRESSION DE WORKS DANS LA MODAL
 async function deleteWorks() {
     // Cible tous les icônes de suppression
     const trashBtns = document.querySelectorAll(".trashBtn");
@@ -103,14 +104,12 @@ async function deleteWorks() {
                         "Authorization": `Bearer ${token}`,
                     }
                 });
-
                 if (response.ok) {
                     // Supprimez le parent de l'icône de suppression
                     const parentElement = trashBtn.parentElement;
                     parentElement.remove();
                     // Réception de response en text
                     const responseData = await response.text(); 
-
                 // Check if response data is not empty
                 if (responseData.trim() !== "") {
                     console.log("Réponse après suppression :", responseData);
@@ -119,8 +118,8 @@ async function deleteWorks() {
                     cleanWorksAndCategories();
                     const updatedWorks = await loadWorks();
                     loadCategories();
-                    genWorks(updatedWorks);
-                    genModalWorks(updatedWorks);
+                    displayWorks(updatedWorks);
+                    displayModalWorks(updatedWorks);
                 } else {
                     console.error("La suppression de l'élément a échoué. Statut de réponse :", response.status);
                 }
@@ -131,7 +130,7 @@ async function deleteWorks() {
     });
 }
 
-// Ajout de Works dans la Modal
+// SECTION AJOUT DE WORKS DANS LA MODAL
 // Sélection de l'élément input de type file
 const addPhotoFormBtnInput = document.querySelector(".addPhotoFormBtnInput");
 const imgPreview = document.querySelector(".blueDivAdd");
@@ -151,7 +150,6 @@ function getImgData() {
 		fileReader.addEventListener("load", function () {
 		imgPreview.style.display = "null";
 		imgPreview.innerHTML = '<img src="' + this.result + '" />';
-
         imageWaiting.setAttribute('aria-hidden', true) ;
         imageWaiting.style.display = "none";
         addPhotoFormBtnAll.setAttribute('aria-hidden', true) ;
@@ -163,7 +161,7 @@ function getImgData() {
 }
 
 // Création de la fonction de validation du formulaire d'envoi de Works
-// Validation du formulaire et activation du bouton Submit d'envoi
+// et activation du bouton Submit d'envoi
 function validateForm() {
 addPhotoFormBtnInput.addEventListener("change", validateForm);
 const addPhotoTitle = document.getElementById("addPhotoTitle");
@@ -181,9 +179,10 @@ const submitPhoto = document.getElementById("submitPhoto");
     }
 }
 
-// On écoute les événements de modification des champs
+// Ecoute des événements de modification des champs
 const submitPhoto = document.getElementById("submitPhoto");
 submitPhoto.addEventListener("click", postNewWork);
+
 // Ajouter un projet
 async function postNewWork(event) {
     event.preventDefault();
@@ -219,8 +218,8 @@ async function postNewWork(event) {
             cleanWorksAndCategories();
             const updatedWorks = await loadWorks();
             loadCategories();
-            genModalWorks(updatedWorks);
-            genWorks(updatedWorks);    
+            displayModalWorks(updatedWorks);
+            displayWorks(updatedWorks);    
         } else if (response.status === 400) {
             alert("Merci de remplir tous les champs");
         } else if (response.status === 500) {
@@ -232,15 +231,25 @@ async function postNewWork(event) {
     } catch (error) {
         console.log(error);
     }
-}}
+}
+}
 
-
-// EXEC
+// SECTION DES EXECUTANTS DES FONCTIONS
 const works = await loadWorks();
 const categories = await loadCategories();
-genWorks(works);
-genModalWorks(works);
+displayWorks(works);
+displayModalWorks(works);
 validateForm();
+// Appel de la fonction pour ajouter les écouteurs d'événements une fois que les éléments sont générés
+deleteWorks();
+
+// Récupération des catégories pour intégration dans Select de la Modal
+for (let category of categories) {
+    let categorySelection = document.createElement("option");
+    categorySelection.setAttribute("value", `${category.id}`);
+    categorySelection.innerHTML = `${category.name}`;
+    document.getElementById("addPhotoCategory").appendChild(categorySelection);
+}
 
 // Création et activation des boutons de filtres
 // Bouton affichage de tous projets
@@ -251,7 +260,7 @@ allButton.textContent = "Tous";
 allButton.addEventListener("click", function () {
     window.localStorage.removeItem("works");
     document.querySelector(".gallery").innerHTML = "";
-    genWorks(works);
+    displayWorks(works);
 });
 
 // Boutons par catégories
@@ -267,17 +276,6 @@ for (let category of categories) {
         return works.category.id === category.id;
     });
     document.querySelector(".gallery").innerHTML = "";
-    genWorks(worksObjects);
+    displayWorks(worksObjects);
 });
-}  
-
-// Récupération des catégories pour intégration dans Select de la Modal
-for (let category of categories) {
-    let categorySelection = document.createElement("option");
-    categorySelection.setAttribute("value", `${category.id}`);
-    categorySelection.innerHTML = `${category.name}`;
-    document.getElementById("addPhotoCategory").appendChild(categorySelection);
 }
-
-// Appel de la fonction pour ajouter les écouteurs d'événements une fois que les éléments sont générés
-deleteWorks();
