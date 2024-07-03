@@ -21,6 +21,7 @@ L'objectif était de créez une page web dynamique avec JavaScript
 ![screenshot](https://github.com/Mogavartn/portfolio-mo/blob/e06b77f13eeeba0076b1b108bf165e4f93def032/src/images/projects-sophiebuel.jpg)
 
 ## Compétences évaluées
+
 1. Gérer les événements utilisateurs et manipuler le DOM avec JavaScript.
 
 2.Créer une page de connexion administrateur et une modale d'upload de médias.
@@ -30,6 +31,8 @@ L'objectif était de créez une page web dynamique avec JavaScript
 4.Accéder au code back-end et apprendre à communiquer avec une API.
 
 5.Utiliser Figma pour les maquettes, Visual Studio Code pour le développement et GitHub pour la gestion de version.
+
+> Commentaires de la soutenance en bas de ReadMe
 
 &nbsp;
 
