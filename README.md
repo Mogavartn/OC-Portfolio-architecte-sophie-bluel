@@ -1,15 +1,13 @@
 # Sophie Bluel: Architecte d'intérieur
+> Projet 3 du parcours Développeur Web de chez OpenClassrooms
 
 ![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 
 &nbsp;
-&nbsp;
 
 ## Description
-
-Projet six du parcours développeur front-end de chez OpenClassrooms
 
 L'objectif était de créez une page web dynamique avec JavaScript 
 > Pour en savoir plus, retrouvez le brief de mission en bas de page
@@ -32,7 +30,6 @@ L'objectif était de créez une page web dynamique avec JavaScript
 
 > Commentaires de la soutenance en bas de ReadMe
 
-&nbsp;
 
 &nbsp;
 ## Installation du backend
@@ -53,7 +50,6 @@ L'objectif était de créez une page web dynamique avec JavaScript
 
 > Une save du backend est accessible depuis le repo, si vous souhaitez utiliser celui-ci, n'oubliez pas d'initialiser les dépendances avec ``npm install``
 
-&nbsp;
 
 &nbsp;
 ## Brief de mission
@@ -70,7 +66,6 @@ L'objectif était de créez une page web dynamique avec JavaScript
 
 3. la modale permettant d'uploader de nouveaux médias 
 
-&nbsp;
 &nbsp;
 
 ## Remarques sur l'évaluation
